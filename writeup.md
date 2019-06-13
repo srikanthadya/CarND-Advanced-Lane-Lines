@@ -336,9 +336,9 @@ The distance from the center of the lane is computed by subtracting the lane cen
 
 ## Video
 
-<video width="320" height="240" controls>
-  <source src="https://docs.google.com/uc?export=download&id=1-2XsTt1iCh8PS7HnLrgHsMlWTCIeWLQH" type="video/mp4">
-</video>
+[Output Video](https://github.com/srikanthadya/CarND-Advanced-Lane-Lines/blob/master/project_video_output.mp4)
+
+<video src="https://docs.google.com/uc?export=download&id=1-2XsTt1iCh8PS7HnLrgHsMlWTCIeWLQH" width="320" height="200" controls preload></video>
 
 ## Discussion 
 
