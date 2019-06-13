@@ -1,4 +1,6 @@
 
+markdown: kramdown
+
 
 ```
 from google.colab import drive
@@ -7,7 +9,11 @@ drive.mount('/content/drive/')
 %cd /content/drive/'My Drive'/'All_Repos'/Self-Driving-Car-NanoDegree/CarND-Advanced-Lane-Lines
 ```
 
-    Drive already mounted at /content/drive/; to attempt to forcibly remount, call drive.mount("/content/drive/", force_remount=True).
+    Go to this URL in a browser: https://accounts.google.com/o/oauth2/auth?client_id=947318989803-6bn6qk8qdgf4n4g3pfee6491hc0brc4i.apps.googleusercontent.com&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&scope=email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdocs.test%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.photos.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fpeopleapi.readonly&response_type=code
+    
+    Enter your authorization code:
+    ··········
+    Mounted at /content/drive/
     /content/drive/My Drive/All_Repos/Self-Driving-Car-NanoDegree/CarND-Advanced-Lane-Lines
 
 
@@ -21,6 +27,13 @@ from IPython.display import HTML
 import glob
 %matplotlib inline
 ```
+
+    Imageio: 'ffmpeg-linux64-v3.3.1' was not found on your computer; downloading it now.
+    Try 1. Download from https://github.com/imageio/imageio-binaries/raw/master/ffmpeg/ffmpeg-linux64-v3.3.1 (43.8 MB)
+    Downloading: 8192/45929032 bytes (0.0%)3227648/45929032 bytes (7.0%)7299072/45929032 bytes (15.9%)11436032/45929032 bytes (24.9%)15327232/45929032 bytes (33.4%)19382272/45929032 bytes (42.2%)23404544/45929032 bytes (51.0%)27467776/45929032 bytes (59.8%)31498240/45929032 bytes (68.6%)35463168/45929032 bytes (77.2%)39518208/45929032 bytes (86.0%)43532288/45929032 bytes (94.8%)45929032/45929032 bytes (100.0%)
+      Done
+    File saved as /root/.imageio/ffmpeg/ffmpeg-linux64-v3.3.1.
+
 
 ## Camera Calibration
 
@@ -47,7 +60,7 @@ plt.show()
 ```
 
 
-![png](writeup_files/writeup_3_0.png)
+![png](writeup_files/writeup_4_0.png)
 
 
 ## Distortion Correction
@@ -62,23 +75,34 @@ In order to correct these two types of distortions, we can use a calibration tec
 
 ### Radial Distortion Correction
 
-$$ x_{distorted} = x_{ideal}(1+k_1 r^2 + k_2 r^4 + k_3 r^6) $$
-$$ y_{distorted} = y_{ideal}(1+k_1 r^2 + k_2 r^4 + k_3 r^6) $$
+<center>
+
+![eq1](https://latex.codecogs.com/gif.latex?%24%24%20x_%7Bdistorted%7D%20%3D%20x_%7Bideal%7D%281&plus;k_1%20r%5E2%20&plus;%20k_2%20r%5E4%20&plus;%20k_3%20r%5E6%29%20%24%24)
+
+![eq2](https://latex.codecogs.com/gif.latex?%24%24%20y_%7Bdistorted%7D%20%3D%20y_%7Bideal%7D%281&plus;k_1%20r%5E2%20&plus;%20k_2%20r%5E4%20&plus;%20k_3%20r%5E6%29%20%24%24)
+  
+</center>
+
+
 
 ### Tangential Distortion Correction
 
-$$ x_{corrected} = x + [2p_1 xy + p_2(r^2 + 2x^2)] $$
-$$ y_{corrected} = y + [2p_1(r^2 + 2y^2)  + 2p_2xy] $$
-\
+<center>
+  
+![eq3](https://latex.codecogs.com/gif.latex?%24%24%20x_%7Bcorrected%7D%20%3D%20x%20&plus;%20%5B2p_1%20xy%20&plus;%20p_2%28r%5E2%20&plus;%202x%5E2%29%5D%20%24%24)
+
+![eq4](https://latex.codecogs.com/gif.latex?%24%24%20y_%7Bcorrected%7D%20%3D%20y%20&plus;%20%5B2p_1%28r%5E2%20&plus;%202y%5E2%29%20&plus;%202p_2xy%5D%20%24%24)
+  
+</center>
+
 These transformation coefficients ( $ k_1, k_2, k_3, p_1, p_2 $) , along with the camera matrix 
+<center>
 
-$$ camera\ matrix = \left[ {\begin{array}{cc}
-   f_x & 0 & c_x \\
-   0 & f_y & c_y\\
-   0 & 0 & 1\\
-  \end{array} } \right] $$
+![eq5](https://latex.codecogs.com/gif.latex?%24%24%20camera%5C%20matrix%20%3D%20%7B%5Cbegin%7Bbmatrix%7D%20f_x%20%26%200%20%26%20c_x%20%5C%5C%200%20%26%20f_y%20%26%20c_y%5C%5C%200%20%26%200%20%26%201%5C%5C%20%5Cend%7Bbmatrix%7D%20%7D%24%24)
 
-can then be used to undistort every frame that we extract from the camera feed. Here $c_x and \ c_y $ are principal points which is usually the image center and $ f_x  and\  f_y $ are the focal length expressed in pixels. The camera matrix is intrinsic to a camera.
+</center>
+
+can then be used to undistort every frame that we extract from the camera feed. Here $c_x and \ c_y $ are principal points which is usually the image center and ***f_x***  and ***f_y*** are the focal length expressed in pixels. The camera matrix is intrinsic to a camera.
 
 \
 
@@ -130,7 +154,7 @@ plt.show()
 ```
 
 
-![png](writeup_files/writeup_6_0.png)
+![png](writeup_files/writeup_7_0.png)
 
 
 ## Binary Thresholding
@@ -155,11 +179,11 @@ plt.show()
 ```
 
 
-![png](writeup_files/writeup_8_0.png)
+![png](writeup_files/writeup_9_0.png)
 
 
 
-![png](writeup_files/writeup_8_1.png)
+![png](writeup_files/writeup_9_1.png)
 
 
 The second image above is a thresholded image where the S channel is thresholded such that all pixels below an intesity value of 160 is set to zero. The third image is a binary image created from the thresholded image. Any pixel with an intensity higher than zero is set to one. 
@@ -193,7 +217,7 @@ plt.show()
 ```
 
 
-![png](writeup_files/writeup_10_0.png)
+![png](writeup_files/writeup_11_0.png)
 
 
 ## Perspective Transform
@@ -236,11 +260,11 @@ plt.show()
 ```
 
 
-![png](writeup_files/writeup_12_0.png)
+![png](writeup_files/writeup_13_0.png)
 
 
 
-![png](writeup_files/writeup_12_1.png)
+![png](writeup_files/writeup_13_1.png)
 
 
 ## Lane Line Detection
@@ -269,7 +293,7 @@ plt.show()
 ```
 
 
-![png](writeup_files/writeup_14_0.png)
+![png](writeup_files/writeup_15_0.png)
 
 
 But instead of taking the histogram for the whole image, if we can slide a window from the bottom of the image to the top, we can find the base_x values of the left and right lines along the y axis by looking at the point on x axis which has the highest activations. If the number of pixels in this window exceeds a **minpix** value then the center of the window is recomputed. In the image below we can see the sliding window and the base points of each window. We can then fit a second order polynomial to these points and get the left and right lines drawn in yellow below 
@@ -282,24 +306,32 @@ But instead of taking the histogram for the whole image, if we can slide a windo
 ## Computing radius of curvature
 
 The radius of curvature of the fitted lines can be computed using the formula
+<center>
+  
+![eq6](https://latex.codecogs.com/gif.latex?%24%24%20R_%7Bcurve%7D%20%3D%20%5Cfrac%7B1&plus;%282Ay&plus;B%29%5E2%29%5E%5Cfrac%7B3%7D%7B2%7D%7D%7B%7C2A%7C%7D%20%24%24)
 
-$$ R_{curve} = \frac{1+(2Ay+B)^2)^\frac{3}{2}}{|2A|} $$
+</center>
+
 
  
 Here A and B are the coefficients of the fitted curve. The equation is evaluated at the lowest part of the image , i.e  y = image.shape[0] in order to get the curvature closest to the vehicle. 
 
 There are two curvature values that we get, the left line curvature and the right line curvature. The two are averaged and the mean radius of curvature of the lane is reported. 
 
-$$ R_{curvature} = \frac{LeftLane_{curvature} + RightLane_{curvature}}{2} $$
+<center>
+  
+![eq7](https://latex.codecogs.com/gif.latex?%24%24%20R_%7Bcurvature%7D%20%3D%20%5Cfrac%7BLeftLane_%7Bcurvature%7D%20&plus;%20RightLane_%7Bcurvature%7D%7D%7B2%7D%20%24%24)
+  
+  </center>
 
 The distance from the center of the lane is computed by subtracting the lane center from the image center as shown below
 
-$$ Lane center = LeftBase_x + (RightBase_x - LeftBase_x) $$
-$$ Image Center = image.shape[1]//2 $$
+<center>
 
-$$ Distance from Center = (Image Center - Lane Center) * 3.7/700 $$
-\
-\
+![eq8](https://latex.codecogs.com/gif.latex?%5Cbegin%7Balign*%7D%20Lane%20center%20%3D%20LeftBase_x%20&plus;%20%28RightBase_x%20-%20LeftBase_x%29%20%5C%5C%20Image%20Center%20%3D%20image.shape%5B1%5D//2%20%5C%5C%20Distance%20from%20Center%20%3D%20%28Image%20Center%20-%20Lane%20Center%29%20*%203.7/700%20%5Cend%7Balign*%7D)
+
+</center>
+
 <center><img src="https://docs.google.com/uc?export=download&id=1yMbr6WTTtflDFDa2sOqmX_gzNUUZL172" width=600 /></center>
 
 ## Discussion 
