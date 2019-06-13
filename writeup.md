@@ -334,6 +334,12 @@ The distance from the center of the lane is computed by subtracting the lane cen
 
 <center><img src="https://docs.google.com/uc?export=download&id=1yMbr6WTTtflDFDa2sOqmX_gzNUUZL172" width=600 /></center>
 
+## Video
+
+<video width="320" height="240" controls>
+  <source src="https://docs.google.com/uc?export=download&id=1-2XsTt1iCh8PS7HnLrgHsMlWTCIeWLQH" type="video/mp4">
+</video>
+
 ## Discussion 
 
 While this implementation is much smoother and more accurate than the Lane Line finding project which we implemented [earlier](https://github.com/srikanthadya/CarND-LaneLines-P1/blob/master/writeup.pdf) , there are still some shortcomings. Couple of observations  
